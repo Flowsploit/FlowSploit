@@ -31,43 +31,12 @@
 	<div>
 	<h4></h4></div>
 	<div align="center">
-		<a class="btn btn-info" href="javascript: ElementOverflow()"><span class="glyphicon glyphicon-google" aria-hidden="true"></span> Element Overflow</a><br><br>
+		<a class="btn btn-info" href="ElementOverflow.html"><span class="glyphicon glyphicon-google" aria-hidden="true"></span> Element Overflow</a><br><br>
 	</div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
 <script src="../js/jquery-1.11.3.min.js"></script> 
 <!-- Include all compiled plugins (below), or include individual files as needed --> 
 <script src="../js/bootstrap.js"></script>
-	
-	<script type="text/javascript" language="JavaScript">
 
-			function Warning2 ()
-			{
-				return confirm('Do you really qant to crash your Nintendo Switch? This is your last chance to cancel. Clicking OK will crash the Switch!');
-			}
-			function ElementOverflow ()
-			{
-	if(Warning2()){
-					x = document.createElement('div');
-					document.body.appendChild(x);
-					$(x).style('display', 'none');
-					_ElementOverflow2();
-	}
-			}
-			
-			function _ElementOverflow2 ()
-			{
-				var y;
-				for ( var i = 0; i < 50; i++ )
-				{
-					y = document.createElement('div');
-					y.className = 'element_foom';
-					x.appendChild(y);
-					x = y;
-				}
-				i = document.getElementsByTagName('div');	//	Hee, hee, hee.
-				setTimeout(_ElementOverflow2, 1);
-			}
-			
-		</script>
 </body>
 </html>
