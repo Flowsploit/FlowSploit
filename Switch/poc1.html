@@ -9,7 +9,7 @@
         </style>
     </head>
     <body>
-        <h1>Switch buffer test poc1 test2</h1>
+        <h1>Switch buffer test poc1 test3</h1>
         <ul>
             <li><a href='javascript:go();'>go!</a></li>
             <li><a href='javascript:document.location.reload();'>reload</a></li>
@@ -33,7 +33,7 @@
                 var killMe = 70;
                 // garbage collection stuff
                 var pressure = new Array(500);
-                var rwbuf = new ArrayBuffer(0x2003 * 6);
+                var rwbuf = new ArrayBuffer(0x1003 * 6);
                 var numbufs = 40000;
                 var bufs = new Array(numbufs);
                 // do garbage collect
