@@ -37,21 +37,21 @@
 <script src="../js/jquery-1.11.3.min.js"></script> 
 <!-- Include all compiled plugins (below), or include individual files as needed --> 
 <script src="../js/bootstrap.js"></script>
+	
 	<script type="text/javascript" language="JavaScript">
-			
-			
-			
+
 			function Warning2 ()
 			{
 				return confirm('Do you really qant to crash your Nintendo Switch? This is your last chance to cancel. Clicking OK will crash the Switch!');
 			}
 			function ElementOverflow ()
 			{
-	
+	if(Warning2()){
 					x = document.createElement('div');
 					document.body.appendChild(x);
 					$(x).style('display', 'none');
 					_ElementOverflow2();
+	}
 			}
 			
 			function _ElementOverflow2 ()
