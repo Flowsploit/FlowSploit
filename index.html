@@ -25,7 +25,7 @@
                 var pressure = new Array(100);
                 dgc = function() {
                     for (var i = 0; i < pressure.length; i++) {
-                        pressure[i] = new Uint32Array(0x1337);
+                        pressure[i] = new Uint32Array(0x13370);
                     }
                     for (var i = 0; i < pressure.length; i++) {
                         pressure[i] = 0;
@@ -36,14 +36,14 @@
                 var stale = 0;
                 var _dview = null;              
                 function u2d(low, hi) {
-                    if (!_dview) _dview = new DataView(new ArrayBuffer(32));
+                    if (!_dview) _dview = new DataView(new ArrayBuffer(64));
                     _dview.setUint32(0, hi);
-                    _dview.setUint32(4, low);
+                    _dview.setUint32(8, low);
                     return _dview.getFloat64(0);
                 }
                 function go_() {
                     
-                    if (smash.length != 0x20) return;
+                    if (smash.length != 0x40) return;
                    
                     dgc();
                    
