@@ -36,7 +36,7 @@
                 // do garbage collect
                 dgc = function() {
                     for (var i = 0; i < pressure.length; i++) {
-                        pressure[i] = new Uint32Array(0x99999);
+                        pressure[i] = new Uint32Array(0x50000);
                     }
                     for (var i = 0; i < pressure.length; i++) {
                         pressure[i] = 0;
