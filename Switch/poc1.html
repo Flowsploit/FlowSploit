@@ -132,7 +132,7 @@
                         for (i = 0; i < bufs.length; i++) {
                             for (k = 0; k < bufs[0].length; k++) {
                                 // Found the value! bufs[i][k] point now at the same memory as stale[0]
-                                if (bufs[i][k] == 0x414142FF) {
+                                if (bufs[i][k] >= 0x41414242) {
                                     alert('Overlapping Arrays found at bufs['+i+']['+k+']\nsmash.length is still: 0x'+smash.length.toString(16));
                                     // create a new object. Will look kinda like this:
                                     // 0x0100150000000136 0x0000000000000000 <- fictional value
