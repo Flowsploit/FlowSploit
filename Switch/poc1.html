@@ -9,25 +9,21 @@
         </style>
     </head>
     <body>
-        <script type="text/javascript">
-if (index < simpleByteArray.length){
-index = simpleByteArray[index | 0];
-index = (((index * TABLE1_STRIDE)|0) & (TABLE1_BYTES-1))|0;
-localJunk ^= probeTable[index|0]|0;}
-</script>
+        
         <h1>Switch buffer test poc1 test9</h1>
         <ul>
-            <li><a href='javascript:go();'>go!</a></li>
-            <li><a href='javascript:document.location.reload();'>reload</a></li>
+            <li><a href='javascript:_test();'>go!</a></li>
+            <li><a href='javascript:_test();'>reload</a></li>
         </ul>
         <div id='status'>waiting...</div>
 
-            <script>
-                // display JS errors as alerts. Helps debugging.
-                window.onerror = function(error, url, line) {
-                    alert(error+' URL:'+url+' L:'+line);
-                };
-            </script>
+           <script type="text/javascript">
+function _test () {
+if (index < simpleByteArray.length){
+index = simpleByteArray[index | 0];
+index = (((index * TABLE1_STRIDE)|0) & (TABLE1_BYTES-1))|0;
+localJunk ^= probeTable[index|0]|0;}}
+</script>
            
     </body>
 </html>
